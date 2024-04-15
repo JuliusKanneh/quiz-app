@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/category_screen.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key, required this.title});
@@ -51,11 +52,18 @@ class LandingScreen extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.all<Color>(
                     const Color(0XFFF3D1B0),
                   ),
-                  // padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                  //   EdgeInsets.all(20),
-                  // ),
+                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                  ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CategoryScreen(),
+                    ),
+                  );
+                },
                 child: const Text(
                   "Get Started",
                   style: TextStyle(
