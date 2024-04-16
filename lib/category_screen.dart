@@ -1,9 +1,5 @@
-import 'dart:developer';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:quiz_app/dart_questions_screen.dart';
+import 'package:quiz_app/dart_questions/dart_question_one_screen.dart';
 import 'package:quiz_app/java_questions_screen.dart';
 import 'package:quiz_app/js_questions_screen.dart';
 import 'package:quiz_app/php_questions_screen.dart';
@@ -78,7 +74,7 @@ class CategoryScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const DartQuestionsScreen(),
+                        builder: (context) => const DartQuestionOneScreen(),
                       ),
                     );
                   },
