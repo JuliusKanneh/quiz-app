@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/java_questions/java_question_three_screen.dart';
 
-import 'package:quiz_app/java_questions/java_question_two_screen.dart';
-
-class JavaQuestionOneScreen extends StatelessWidget {
-  const JavaQuestionOneScreen({super.key});
+class JavaQuestionTwoScreen extends StatelessWidget {
+  const JavaQuestionTwoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +56,7 @@ class JavaQuestionOneScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "1 of 3 Questions",
+                    "2 of 3 Questions",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -79,7 +78,7 @@ class JavaQuestionOneScreen extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Text(
-                      "1. Java is a programming language developed by _________.",
+                      "2. Java is a _____ programming language.",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -102,7 +101,7 @@ class JavaQuestionOneScreen extends StatelessWidget {
                 ),
                 onPressed: () {},
                 child: const Text(
-                  "Microsoft",
+                  "Procedural Programming Language",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -122,7 +121,7 @@ class JavaQuestionOneScreen extends StatelessWidget {
                 ),
                 onPressed: () {},
                 child: const Text(
-                  "Open AI",
+                  "Object Oriented Programming Language",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -142,7 +141,7 @@ class JavaQuestionOneScreen extends StatelessWidget {
                 ),
                 onPressed: () {},
                 child: const Text(
-                  "Google",
+                  "Scripting Language",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -153,8 +152,35 @@ class JavaQuestionOneScreen extends StatelessWidget {
                 height: 40,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 48, 113, 36),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Row(
+                      children: [
+                        Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        Text(
+                          "Previous",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 48, 113, 36),
@@ -166,7 +192,7 @@ class JavaQuestionOneScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const JavaQuestionTwoScreen(),
+                          builder: (context) => const JavaQuestionThreeScreen(),
                         ),
                       );
                     },

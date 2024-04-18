@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/dart_questions/dart_question_one_screen.dart';
-import 'package:quiz_app/java_questions_screen.dart';
+import 'package:quiz_app/java_questions/java_question_one_screen.dart';
 import 'package:quiz_app/js_questions_screen.dart';
 import 'package:quiz_app/php_questions_screen.dart';
 import 'package:quiz_app/widgets/category_button.dart';
@@ -59,7 +59,7 @@ class CategoryScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const JavaQuestionsScreen(),
+                        builder: (context) => const JavaQuestionOneScreen(),
                       ),
                     );
                   },
