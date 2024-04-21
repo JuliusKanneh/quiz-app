@@ -1,11 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:quiz_app/category_screen.dart';
 
 class SubmissionScreen extends StatelessWidget {
-  const SubmissionScreen({super.key});
+  final int score;
+  const SubmissionScreen({super.key, required this.score});
 
   @override
   Widget build(context) {
+    log("Score: $score");
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -26,7 +30,14 @@ class SubmissionScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CategoryScreen(),
+                          ),
+                        );
+                      },
                       icon: const Icon(
                         Icons.close,
                         color: Colors.white,

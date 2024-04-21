@@ -189,12 +189,12 @@ class JavaQuestionThreeScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SubmissionScreen(),
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     // builder: (context) => const SubmissionScreen(),
+                      //   ),
+                      // );
                     },
                     child: const Row(
                       children: [

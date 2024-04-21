@@ -1,11 +1,38 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:quiz_app/submission_screen.dart';
 
-class DartQuestionThreeScreen extends StatelessWidget {
-  const DartQuestionThreeScreen({super.key});
+class DartQuestionThreeScreen extends StatefulWidget {
+  final int score;
+  const DartQuestionThreeScreen({
+    super.key,
+    required this.score,
+  });
+
+  @override
+  State<DartQuestionThreeScreen> createState() =>
+      _DartQuestionThreeScreenState();
+}
+
+class _DartQuestionThreeScreenState extends State<DartQuestionThreeScreen> {
+  bool? isQuestionOneCorrect;
+  bool? isQuestionTwoCorrect;
+  bool? isQuestionThreeCorrect;
+  int currentScore = 0;
+  Color setColor(bool? isCorrect) {
+    if (isCorrect == null) {
+      return const Color(0XFF8787B1);
+    } else if (isCorrect == true) {
+      return Colors.green;
+    } else {
+      return Colors.red;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    log("Score: ${widget.score}");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0XFF8787B1),
@@ -97,9 +124,21 @@ class DartQuestionThreeScreen extends StatelessWidget {
                   minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(
+                      color: setColor(isQuestionOneCorrect),
+                      width: 5.0,
+                    ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isQuestionOneCorrect = false;
+                    isQuestionThreeCorrect = null;
+                    isQuestionTwoCorrect = null;
+
+                    currentScore = 0;
+                  });
+                },
                 child: const Text(
                   "Microsoft",
                   style: TextStyle(
@@ -117,9 +156,21 @@ class DartQuestionThreeScreen extends StatelessWidget {
                   minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(
+                      color: setColor(isQuestionTwoCorrect),
+                      width: 5.0,
+                    ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isQuestionOneCorrect = null;
+                    isQuestionThreeCorrect = null;
+                    isQuestionTwoCorrect = false;
+
+                    currentScore = 0;
+                  });
+                },
                 child: const Text(
                   "Open AI",
                   style: TextStyle(
@@ -137,9 +188,21 @@ class DartQuestionThreeScreen extends StatelessWidget {
                   minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(
+                      color: setColor(isQuestionThreeCorrect),
+                      width: 5.0,
+                    ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isQuestionOneCorrect = null;
+                    isQuestionThreeCorrect = true;
+                    isQuestionTwoCorrect = null;
+
+                    currentScore = 0;
+                  });
+                },
                 child: const Text(
                   "Google",
                   style: TextStyle(
@@ -192,7 +255,8 @@ class DartQuestionThreeScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const SubmissionScreen(),
+                          builder: (context) => SubmissionScreen(
+                              score: widget.score + currentScore),
                         ),
                       );
                     },

@@ -1,11 +1,34 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:quiz_app/dart_questions/dart_question_three_screen.dart';
 
-class DartQuestioTwoScreen extends StatelessWidget {
-  const DartQuestioTwoScreen({super.key});
+class DartQuestioTwoScreen extends StatefulWidget {
+  final int score;
+  const DartQuestioTwoScreen({super.key, required this.score});
+
+  @override
+  State<DartQuestioTwoScreen> createState() => _DartQuestioTwoScreenState();
+}
+
+class _DartQuestioTwoScreenState extends State<DartQuestioTwoScreen> {
+  bool? isQuestionOneCorrect;
+  bool? isQuestionTwoCorrect;
+  bool? isQuestionThreeCorrect;
+  int currentScore = 0;
+  Color setColor(bool? isCorrect) {
+    if (isCorrect == null) {
+      return const Color(0XFF8787B1);
+    } else if (isCorrect == true) {
+      return Colors.green;
+    } else {
+      return Colors.red;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    log("Score: ${widget.score}");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0XFF8787B1),
@@ -97,9 +120,21 @@ class DartQuestioTwoScreen extends StatelessWidget {
                   minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(
+                      color: setColor(isQuestionOneCorrect),
+                      width: 5.0,
+                    ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isQuestionOneCorrect = false;
+                    isQuestionThreeCorrect = null;
+                    isQuestionTwoCorrect = null;
+
+                    currentScore = 0;
+                  });
+                },
                 child: const Text(
                   "Procedural Programming Language",
                   style: TextStyle(
@@ -117,9 +152,20 @@ class DartQuestioTwoScreen extends StatelessWidget {
                   minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(
+                      color: setColor(isQuestionTwoCorrect),
+                      width: 5.0,
+                    ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isQuestionTwoCorrect = true;
+                    isQuestionOneCorrect = null;
+                    isQuestionThreeCorrect = null;
+                    currentScore = 1;
+                  });
+                },
                 child: const Text(
                   "Object Oriented Programming Language",
                   style: TextStyle(
@@ -137,9 +183,20 @@ class DartQuestioTwoScreen extends StatelessWidget {
                   minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(
+                      color: setColor(isQuestionThreeCorrect),
+                      width: 5.0,
+                    ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isQuestionThreeCorrect = false;
+                    isQuestionTwoCorrect = null;
+                    isQuestionOneCorrect = null;
+                    currentScore = 0;
+                  });
+                },
                 child: const Text(
                   "Scripting Language",
                   style: TextStyle(
@@ -192,7 +249,9 @@ class DartQuestioTwoScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const DartQuestionThreeScreen(),
+                          builder: (context) => DartQuestionThreeScreen(
+                            score: widget.score + currentScore,
+                          ),
                         ),
                       );
                     },

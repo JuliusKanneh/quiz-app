@@ -1,11 +1,37 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:quiz_app/dart_questions/dart_question_two_screen.dart';
 
-class DartQuestionOneScreen extends StatelessWidget {
+class DartQuestionOneScreen extends StatefulWidget {
   const DartQuestionOneScreen({super.key});
 
   @override
+  State<DartQuestionOneScreen> createState() => _DartQuestionOneScreenState();
+}
+
+class _DartQuestionOneScreenState extends State<DartQuestionOneScreen> {
+  bool? isQuestionOneCorrect;
+  bool? isQuestionTwoCorrect;
+  bool? isQuestionThreeCorrect;
+  int score = 0;
+
+  Color setColor(bool? isCorrect) {
+    if (isCorrect == null) {
+      return const Color(0XFF8787B1);
+    } else if (isCorrect == true) {
+      return Colors.green;
+    } else {
+      return Colors.red;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    log("Is correct: $isQuestionOneCorrect");
+    log("Is correct: $isQuestionTwoCorrect");
+    log("Is correct: $isQuestionThreeCorrect");
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0XFF8787B1),
@@ -97,9 +123,20 @@ class DartQuestionOneScreen extends StatelessWidget {
                   minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(
+                      color: setColor(isQuestionOneCorrect),
+                      width: 5.0,
+                    ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isQuestionOneCorrect = false;
+                    isQuestionThreeCorrect = null;
+                    isQuestionTwoCorrect = null;
+                    score = 0;
+                  });
+                },
                 child: const Text(
                   "Microsoft",
                   style: TextStyle(
@@ -117,9 +154,20 @@ class DartQuestionOneScreen extends StatelessWidget {
                   minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(
+                      color: setColor(isQuestionTwoCorrect),
+                      width: 5.0,
+                    ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isQuestionTwoCorrect = false;
+                    isQuestionOneCorrect = null;
+                    isQuestionThreeCorrect = null;
+                    score = 0;
+                  });
+                },
                 child: const Text(
                   "Open AI",
                   style: TextStyle(
@@ -137,9 +185,21 @@ class DartQuestionOneScreen extends StatelessWidget {
                   minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
+                    side: BorderSide(
+                      color: setColor(isQuestionThreeCorrect),
+                      width: 5.0,
+                    ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  //correct answer
+                  setState(() {
+                    isQuestionThreeCorrect = true;
+                    isQuestionOneCorrect = null;
+                    isQuestionTwoCorrect = null;
+                    score = 1;
+                  });
+                },
                 child: const Text(
                   "Google",
                   style: TextStyle(
@@ -165,7 +225,9 @@ class DartQuestionOneScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const DartQuestioTwoScreen(),
+                          builder: (context) => DartQuestioTwoScreen(
+                            score: score,
+                          ),
                         ),
                       );
                     },
