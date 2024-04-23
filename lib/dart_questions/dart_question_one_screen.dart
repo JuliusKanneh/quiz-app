@@ -15,6 +15,7 @@ class _DartQuestionOneScreenState extends State<DartQuestionOneScreen> {
   bool? isQuestionTwoCorrect;
   bool? isQuestionThreeCorrect;
   int score = 0;
+  bool? isAttepmted = false;
 
   Color setColor(bool? isCorrect) {
     if (isCorrect == null) {
@@ -135,6 +136,7 @@ class _DartQuestionOneScreenState extends State<DartQuestionOneScreen> {
                     isQuestionThreeCorrect = null;
                     isQuestionTwoCorrect = null;
                     score = 0;
+                    isAttepmted = true;
                   });
                 },
                 child: const Text(
@@ -166,6 +168,7 @@ class _DartQuestionOneScreenState extends State<DartQuestionOneScreen> {
                     isQuestionOneCorrect = null;
                     isQuestionThreeCorrect = null;
                     score = 0;
+                    isAttepmted = true;
                   });
                 },
                 child: const Text(
@@ -198,6 +201,7 @@ class _DartQuestionOneScreenState extends State<DartQuestionOneScreen> {
                     isQuestionOneCorrect = null;
                     isQuestionTwoCorrect = null;
                     score = 1;
+                    isAttepmted = true;
                   });
                 },
                 child: const Text(
@@ -227,6 +231,7 @@ class _DartQuestionOneScreenState extends State<DartQuestionOneScreen> {
                         MaterialPageRoute(
                           builder: (context) => DartQuestioTwoScreen(
                             score: score,
+                            isQuestionOneAttempted: isAttepmted,
                           ),
                         ),
                       );

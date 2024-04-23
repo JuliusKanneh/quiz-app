@@ -44,11 +44,11 @@ class SubmissionScreen extends StatelessWidget {
                       ))
                 ],
               ),
-              const Text.rich(
+              Text.rich(
                 textAlign: TextAlign.center,
                 TextSpan(
                   children: [
-                    TextSpan(
+                    const TextSpan(
                       text: "Congrats!!",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -56,16 +56,16 @@ class SubmissionScreen extends StatelessWidget {
                         color: Colors.yellow,
                       ),
                     ),
-                    TextSpan(
+                    const TextSpan(
                       text: "\nQuiz Completed",
                     ),
-                    TextSpan(
+                    const TextSpan(
                       text: "\nYou have scored",
                     ),
                     TextSpan(
-                      text: "\n2/3",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 50),
+                      text: "\n$score/3",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 50),
                     ),
                   ],
                   style: TextStyle(

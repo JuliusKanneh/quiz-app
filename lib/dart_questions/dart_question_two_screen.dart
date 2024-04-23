@@ -5,7 +5,9 @@ import 'package:quiz_app/dart_questions/dart_question_three_screen.dart';
 
 class DartQuestioTwoScreen extends StatefulWidget {
   final int score;
-  const DartQuestioTwoScreen({super.key, required this.score});
+  final bool? isQuestionOneAttempted;
+  const DartQuestioTwoScreen(
+      {super.key, required this.score, required this.isQuestionOneAttempted});
 
   @override
   State<DartQuestioTwoScreen> createState() => _DartQuestioTwoScreenState();
@@ -16,6 +18,8 @@ class _DartQuestioTwoScreenState extends State<DartQuestioTwoScreen> {
   bool? isQuestionTwoCorrect;
   bool? isQuestionThreeCorrect;
   int currentScore = 0;
+  bool? isQuestionTwoAttempted = false;
+
   Color setColor(bool? isCorrect) {
     if (isCorrect == null) {
       return const Color(0XFF8787B1);
@@ -29,6 +33,7 @@ class _DartQuestioTwoScreenState extends State<DartQuestioTwoScreen> {
   @override
   Widget build(BuildContext context) {
     log("Score: ${widget.score}");
+    log("Is Question One Attempted: ${widget.isQuestionOneAttempted}");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0XFF8787B1),
@@ -133,6 +138,7 @@ class _DartQuestioTwoScreenState extends State<DartQuestioTwoScreen> {
                     isQuestionTwoCorrect = null;
 
                     currentScore = 0;
+                    isQuestionTwoAttempted = true;
                   });
                 },
                 child: const Text(
@@ -164,6 +170,7 @@ class _DartQuestioTwoScreenState extends State<DartQuestioTwoScreen> {
                     isQuestionOneCorrect = null;
                     isQuestionThreeCorrect = null;
                     currentScore = 1;
+                    isQuestionTwoAttempted = true;
                   });
                 },
                 child: const Text(
@@ -195,6 +202,7 @@ class _DartQuestioTwoScreenState extends State<DartQuestioTwoScreen> {
                     isQuestionTwoCorrect = null;
                     isQuestionOneCorrect = null;
                     currentScore = 0;
+                    isQuestionTwoAttempted = true;
                   });
                 },
                 child: const Text(
@@ -251,6 +259,9 @@ class _DartQuestioTwoScreenState extends State<DartQuestioTwoScreen> {
                         MaterialPageRoute(
                           builder: (context) => DartQuestionThreeScreen(
                             score: widget.score + currentScore,
+                            isQuestionTwoAttempted: isQuestionTwoAttempted,
+                            isQuestionOneAttempted:
+                                widget.isQuestionOneAttempted,
                           ),
                         ),
                       );

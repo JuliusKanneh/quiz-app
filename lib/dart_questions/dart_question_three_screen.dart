@@ -1,13 +1,21 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:quiz_app/dart_questions/dart_question_one_screen.dart';
+import 'package:quiz_app/dart_questions/dart_question_two_screen.dart';
 import 'package:quiz_app/submission_screen.dart';
 
 class DartQuestionThreeScreen extends StatefulWidget {
   final int score;
+  final bool? isQuestionTwoAttempted;
+  final bool? isQuestionOneAttempted;
   const DartQuestionThreeScreen({
     super.key,
     required this.score,
+    required this.isQuestionTwoAttempted,
+    required this.isQuestionOneAttempted,
   });
 
   @override
@@ -20,6 +28,8 @@ class _DartQuestionThreeScreenState extends State<DartQuestionThreeScreen> {
   bool? isQuestionTwoCorrect;
   bool? isQuestionThreeCorrect;
   int currentScore = 0;
+  bool? isQuestionThreeAttempted = false;
+
   Color setColor(bool? isCorrect) {
     if (isCorrect == null) {
       return const Color(0XFF8787B1);
@@ -30,9 +40,21 @@ class _DartQuestionThreeScreenState extends State<DartQuestionThreeScreen> {
     }
   }
 
+  ///Our police man function
+  bool isAllQuestionAttempted() {
+    if (widget.isQuestionOneAttempted == false ||
+        widget.isQuestionTwoAttempted == false ||
+        isQuestionThreeAttempted == false) {
+      return false;
+    }
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     log("Score: ${widget.score}");
+    log("Is Question Two Attempted: ${widget.isQuestionTwoAttempted}");
+    log("Is Question One Attempted: ${widget.isQuestionOneAttempted}");
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0XFF8787B1),
@@ -137,6 +159,7 @@ class _DartQuestionThreeScreenState extends State<DartQuestionThreeScreen> {
                     isQuestionTwoCorrect = null;
 
                     currentScore = 0;
+                    isQuestionThreeAttempted = true;
                   });
                 },
                 child: const Text(
@@ -169,6 +192,7 @@ class _DartQuestionThreeScreenState extends State<DartQuestionThreeScreen> {
                     isQuestionTwoCorrect = false;
 
                     currentScore = 0;
+                    isQuestionThreeAttempted = true;
                   });
                 },
                 child: const Text(
@@ -201,6 +225,7 @@ class _DartQuestionThreeScreenState extends State<DartQuestionThreeScreen> {
                     isQuestionTwoCorrect = null;
 
                     currentScore = 0;
+                    isQuestionThreeAttempted = true;
                   });
                 },
                 child: const Text(
@@ -252,13 +277,108 @@ class _DartQuestionThreeScreenState extends State<DartQuestionThreeScreen> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SubmissionScreen(
-                              score: widget.score + currentScore),
-                        ),
-                      );
+                      isAllQuestionAttempted()
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SubmissionScreen(
+                                    score: widget.score + currentScore),
+                              ),
+                            )
+                          : showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text("Alert"),
+                                  content: Column(
+                                    children: [
+                                      Visibility(
+                                        visible:
+                                            !widget.isQuestionOneAttempted!,
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                                "Question One was not attempt"),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        DartQuestionOneScreen(),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text("Attempt Now"),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible:
+                                            !widget.isQuestionTwoAttempted!,
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                                "Question Two was not attempted"),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        DartQuestioTwoScreen(
+                                                      score: widget.score,
+                                                      isQuestionOneAttempted: widget
+                                                          .isQuestionOneAttempted,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              child: Text("Attempt Now"),
+                                            ),
+                                            Divider(),
+                                          ],
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: !isQuestionThreeAttempted!,
+                                        child: Column(
+                                          children: [
+                                            const Text(
+                                                "Question Three was not attempted"),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        DartQuestionThreeScreen(
+                                                      score: widget.score,
+                                                      isQuestionOneAttempted: widget
+                                                          .isQuestionOneAttempted,
+                                                      isQuestionTwoAttempted: widget
+                                                          .isQuestionTwoAttempted,
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              child: const Text("Attempt Now"),
+                                            ),
+                                            const Divider(),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text("OK"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                     },
                     child: const Row(
                       children: [
